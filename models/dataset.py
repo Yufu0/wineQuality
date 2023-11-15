@@ -1,6 +1,7 @@
 from typing import Optional
 
 import pandas as pd
+import numpy as np
 from pydantic import BaseModel
 
 
@@ -26,8 +27,9 @@ class DatasetWineQuality:
         self.y = []
 
     def add_data(self, wine: Wine):
-        self.X.append(
-            [
+        self.X = np.append(
+            self.X,
+            np.array([
                 wine.fixed_acidity,
                 wine.volatile_acidity,
                 wine.citric_acid,
@@ -39,9 +41,9 @@ class DatasetWineQuality:
                 wine.pH,
                 wine.sulphates,
                 wine.alcohol
-            ]
+            ])
         )
-        self.y.append(wine.quality)
+        self.y = np.append(self.y, np.array(wine.quality))
 
     def get_data(self):
         return self.X, self.y
@@ -49,6 +51,20 @@ class DatasetWineQuality:
     def load_data(self, path: str):
         data = pd.read_csv(path)
         self.columns = data.columns
-        self.X = data.drop(columns=['quality'])
-        self.y = data['quality']
+        self.X = data.drop(columns=['quality', 'Id']).to_numpy()
+        self.y = data['quality'].to_numpy()
 
+    def wine_to_x(self, wine: Wine):
+        return np.array([[
+            wine.fixed_acidity,
+            wine.volatile_acidity,
+            wine.citric_acid,
+            wine.residual_sugar,
+            wine.chlorides,
+            wine.free_sulfur_dioxide,
+            wine.total_sulfur_dioxide,
+            wine.density,
+            wine.pH,
+            wine.sulphates,
+            wine.alcohol
+        ]])

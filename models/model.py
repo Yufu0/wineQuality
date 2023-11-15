@@ -15,8 +15,8 @@ class ModelRandomForest:
     def fit(self, X, y):
         self.model.fit(X, y)
 
-    def predict(self, X):
-        self.model.predict(X)
+    def predict(self, x):
+        return self.model.predict(x)
 
 
 class ModelWrapper:
@@ -31,8 +31,10 @@ class ModelWrapper:
         X, y = self.dataset.get_data()
         self.model.fit(X, y)
 
-    def predict(self, X):
-        self.model.predict(X)
+    def predict(self, wine: Wine):
+        x = self.dataset.wine_to_x(wine)
+        print(x)
+        return self.model.predict(x)
 
 
 

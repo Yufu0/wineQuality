@@ -103,7 +103,8 @@ def predict_quality(wine: Wine):
     if model is None:
         raise HTTPException(status_code=404, detail="Modèle non disponible")
 
-    return model.predict(wine)
+    prediction = model.predict(wine)
+    return {"prediction": int(prediction[0])}
 
 
 if __name__ == "__main__":
