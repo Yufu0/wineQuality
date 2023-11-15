@@ -11,12 +11,25 @@ class ModelRandomForest:
             max_features=7,
             random_state=42
         )
+        self.parameters = {
+            "max_depth": 7,
+            "n_estimators": 10,
+            "max_features": 7,
+            "random_state": 42
+        }
 
     def fit(self, X, y):
         self.model.fit(X, y)
 
     def predict(self, x):
         return self.model.predict(x)
+
+    def score(self, dataset):
+        X, y = dataset.get_data()
+        return self.model.score(X, y)
+
+    def get_params(self):
+        return self.parameters
 
 
 class ModelWrapper:
@@ -37,9 +50,12 @@ class ModelWrapper:
         return self.model.predict(x)
 
     def score(self):
-        return 0
+        return self.model.score(self.dataset)
 
     def get_params(self):
-        return ['','rien']
+        return self.model.get_params()
+
+    def get_info(self):
+        return "Modèle de prédiction de la qualité du vin"
 
 

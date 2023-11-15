@@ -23,13 +23,13 @@ class Wine(BaseModel):
 class DatasetWineQuality:
     def __init__(self):
         self.columns = []
-        self.X = []
-        self.y = []
+        self.X = np.array([])
+        self.y = np.array([])
 
     def add_data(self, wine: Wine):
         self.X = np.append(
             self.X,
-            np.array([
+            np.array([[
                 wine.fixed_acidity,
                 wine.volatile_acidity,
                 wine.citric_acid,
@@ -41,9 +41,10 @@ class DatasetWineQuality:
                 wine.pH,
                 wine.sulphates,
                 wine.alcohol
-            ])
+            ]]),
+            axis=0
         )
-        self.y = np.append(self.y, np.array(wine.quality))
+        self.y = np.append(self.y, [np.array(wine.quality)], axis=0)
 
     def get_data(self):
         return self.X, self.y

@@ -16,9 +16,11 @@ def get_model():
 
 @app.get("/api/model/description")
 def get_model_description():
-    return {"parameters": model.get_params(),
-            "metrics": {"accuracy": model.score()},
-            "other_info": "Yasuo"}
+    return {
+        "parameters": model.get_params(),
+        "metrics": {"accuracy": model.score()},
+        "other_info": model.get_info()
+    }
 
 
 @app.put("/api/model")
