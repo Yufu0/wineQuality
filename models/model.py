@@ -1,5 +1,7 @@
 from sklearn.ensemble import RandomForestClassifier
-import pandas as pd
+
+from models.dataset import Wine
+
 
 class ModelRandomForest:
     def __init__(self):
@@ -22,8 +24,8 @@ class ModelWrapper:
         self.model = model
         self.dataset = dataset
 
-    def add_data(self, x, y):
-        self.dataset.add_data(x, y)
+    def add_data(self, wine: Wine):
+        self.dataset.add_data(wine)
 
     def fit_model(self):
         X, y = self.dataset.get_data()
