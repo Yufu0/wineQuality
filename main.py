@@ -6,59 +6,6 @@ from models.model import ModelWrapper, ModelRandomForest
 app = FastAPI()
 model = None
 
-model_description = {
-    "parameters": {
-        "fixed acidity",
-        "volatile acidity",
-        "citric acid",
-        "residual sugar",
-        "chlorides",
-        "free sulfur dioxide",
-        "total sulfur dioxide",
-        "density",
-        "pH",
-        "sulphates",
-        "alcohol"
-    },
-    "metrics": {
-        "bof tier"
-    },
-    "other_info": {
-        "Yasuo"
-    }
-}
-
-#
-# class Parameters(BaseModel):
-#     fixed_acidity: float
-#     volatile_acidity: float
-#     citric_acid: float
-#     residual_sugar: float
-#     chlorides: float
-#     free_sulfur_dioxide: float
-#     total_sulfur_dioxide: float
-#     density: float
-#     pH: float
-#     sulphates: float
-#     alcohol: float
-
-#
-# class AdditionalData(BaseModel):
-#     fixed_acidity: float
-#     volatile_acidity: float
-#     citric_acid: float
-#     residual_sugar: float
-#     chlorides: float
-#     free_sulfur_dioxide: float
-#     total_sulfur_dioxide: float
-#     density: float
-#     pH: float
-#     sulphates: float
-#     alcohol: float
-#     quality: int
-#
-training_data = []
-
 
 @app.get("/api/model")
 def get_model():
@@ -69,9 +16,9 @@ def get_model():
 
 @app.get("/api/model/description")
 def get_model_description():
-    return {"parameters": model_description["parameters"],
-            "metrics": model_description["metrics"],
-            "other_info": model_description["other_info"]}
+    return {"parameters": model.get_params(),
+            "metrics": {"accuracy": model.score()},
+            "other_info": "Yasuo"}
 
 
 @app.put("/api/model")
@@ -115,4 +62,3 @@ if __name__ == "__main__":
     dataset.load_data("data/Wines.csv")
     model = ModelWrapper(model_forest, dataset)
     uvicorn.run(app, host="127.0.0.1", port=8000)
-

@@ -36,5 +36,10 @@ class ModelWrapper:
         print(x)
         return self.model.predict(x)
 
+    def score(self):
+        return 0
+
+    def get_params(self):
+        return ['','rien']
 
 
