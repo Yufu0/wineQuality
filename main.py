@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException
+import uvicorn
+import os
 
 from models.dataset import DatasetWineQuality, Wine
 from models.model import ModelWrapper, ModelRandomForest
@@ -59,10 +61,11 @@ def predict_quality(wine: Wine):
 
 
 if __name__ == "__main__":
-    import uvicorn
 
     model_forest = ModelRandomForest()
     dataset = DatasetWineQuality()
     dataset.load_data("data/Wines.csv")
     model = ModelWrapper(model_forest, dataset)
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+
+    port = os.environ['FASTAPI_PORT'] 
+    uvicorn.run(app, host="127.0.0.1", port=port)
