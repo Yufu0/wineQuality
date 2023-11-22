@@ -14,7 +14,7 @@ class Wine(BaseModel):
     free_sulfur_dioxide: float
     total_sulfur_dioxide: float
     density: float
-    pH: float
+    ph: float
     sulphates: float
     alcohol: float
     quality: Optional[int] = None
@@ -38,7 +38,7 @@ class DatasetWineQuality:
                 wine.free_sulfur_dioxide,
                 wine.total_sulfur_dioxide,
                 wine.density,
-                wine.pH,
+                wine.ph,
                 wine.sulphates,
                 wine.alcohol
             ]]),
@@ -65,7 +65,7 @@ class DatasetWineQuality:
             wine.free_sulfur_dioxide,
             wine.total_sulfur_dioxide,
             wine.density,
-            wine.pH,
+            wine.ph,
             wine.sulphates,
             wine.alcohol
         ]])
