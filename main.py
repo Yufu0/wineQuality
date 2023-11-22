@@ -49,6 +49,13 @@ def retrain_model():
     return {"message": "Modèle réentraîné avec succès"}
 
 
+@app.get("/api/model/predict")
+def predict_quality():
+    if model is None:
+        raise HTTPException(status_code=404, detail="Modèle non disponible")
+    return {"best_wine": "yep"}
+
+
 @app.post("/api/model/predict")
 def predict_quality(wine: Wine):
     if wine.quality is not None:
@@ -68,5 +75,5 @@ if __name__ == "__main__":
     model = ModelWrapper(model_forest, dataset)
     model.fit_model()
 
-    # port = os.environ['FASTAPI_PORT']
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    port = os.environ['FASTAPI_PORT']
+    uvicorn.run(app, host="127.0.0.1", port=port)
