@@ -16,6 +16,8 @@ def get_model():
 
 @app.get("/api/model/description")
 def get_model_description():
+    if model is None:
+        return {"message": "Model pas encore entrainé."}
     return {
         "parameters": model.get_params(),
         "metrics": {"accuracy": model.score()},
