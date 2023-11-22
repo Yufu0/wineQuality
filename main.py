@@ -67,5 +67,5 @@ if __name__ == "__main__":
     dataset.load_data("data/Wines.csv")
     model = ModelWrapper(model_forest, dataset)
 
-    port = os.environ['FASTAPI_PORT'] 
+    port = int(os.environ['FASTAPI_PORT'])
     uvicorn.run(app, host="127.0.0.1", port=port)
