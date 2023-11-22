@@ -75,5 +75,6 @@ if __name__ == "__main__":
     model = ModelWrapper(model_forest, dataset)
     model.fit_model()
 
-    port = os.environ['FASTAPI_PORT']
-    uvicorn.run(app, host="127.0.0.1", port=port)
+    port = int(os.environ['FASTAPI_PORT'])
+
+    uvicorn.run(app, host="0.0.0.0", port=port)
